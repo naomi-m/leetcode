@@ -1,6 +1,6 @@
-from typing import List
-import ListNode
-import TreeNode
+from typing import List  # Python 3.9 and above: You no longer need to import List from typing
+from ListNode import ListNode
+from TreeNode import TreeNode
     
 class Leetcode:
 
@@ -394,25 +394,27 @@ class Leetcode:
         #         self.left = left
         #         self.right = right
 
+        seen = [] #debug, roots seen
         # recursion divide and conquer
         def maxBinT(arr, l, r):
+            debug = arr[l:r+1] #debug
             if l > r: return None  # base case
 
             # identify root (max) index; compare each element against known max, update as needed; O(n)
-            iMax = 0  # represents 0th element
+            iMax = l  # represents lth-index element
             for i in range(l, r + 1):
-                if nums[i] > nums[iMax]: iMax = i
-            
-            # create l, r subarr trees
+                if arr[i] > arr[iMax]: iMax = i
+            seen.append(arr[iMax]) #debug
+            # create l, r subarr trees; exclude arr[iMax] since that will be root of subtree
             # establish pointers
             left = maxBinT(arr, l, iMax - 1)
             right = maxBinT(arr, iMax + 1, r)
             return TreeNode(nums[iMax], left, right)
 
-        # TODO need to debug looping
         return maxBinT(nums, 0, len(nums) - 1)
 
     # nums = [3,2,1,6,0,5]  # output is [6,3,5,null,2,0,null,null,1]
+    # constructMaximumBinaryTree(nums)
     # print( constructMaximumBinaryTree(nums) )
 
 
@@ -652,5 +654,12 @@ class Leetcode:
     # moveZeroes(nums)
 
 
-    # BEGAN GITHUB REPO
-    
+    ########### BEGAN GITHUB REPO ###########
+
+
+    def reversePairs(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #TODO
